@@ -1,8 +1,8 @@
 /*
 mini EP 10
 
-NOME: Your name here
-NUSP: Your NUSP here
+NOME: Daniel Silva Lopes da Costa
+NUSP: 11302720
 */
 
 #include <stdio.h>
@@ -58,6 +58,11 @@ long seqSum(int *refs, int *res) {
 
 __global__ void cudaSumGPU(int *ints) {
 	// you code goes here
+	int i = blockDim.x * blockIdx.x + threadIdx.x;
+	int SIZE = 1024;
+	int index = blockIdx.x/(SIZE/blockDim.x);
+	int j = (SIZE*SIZE) + index; 
+	inits[j] += inits[i]
 }
 
 long cudaSum(int *refs, int *res) {
@@ -71,7 +76,7 @@ long cudaSum(int *refs, int *res) {
 	long t0 = getMS();
 
 	// Experiment here
-	cudaSumGPU<<< EDIT_THIS, EDIT_THIS >>>(cudaRefs);
+	cudaSumGPU<<< 1, SIZE >>>(cudaRefs);
 
 	cudaMemcpy(results, cudaRefs+(SIZE*SIZE), sizeof(int)*SIZE, cudaMemcpyDeviceToHost);
 
